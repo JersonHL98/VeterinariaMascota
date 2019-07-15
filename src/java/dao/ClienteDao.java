@@ -15,27 +15,26 @@ import utilitarios.HibernateUtil;
 
 /**
  *
- * @author LeguiA
+ * @author Jerson
  */
 public class ClienteDao implements ICliente {
 
     @Override
-    public boolean guardarCliente(Cliente cliente) {
-        //Construir una nueva session y una nueva transaccion
+      public boolean guardarCliente(Cliente cliente) {
+//Construir una nueva session y una nueva transaccion
         boolean respuesta = true;
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Transaction transaccion = sesion.beginTransaction();
-
-        //Registrar en la base de datos la cliente
+        //Rgistrar en la base de datos la cliente
         try {
             sesion.save(cliente);
             transaccion.commit();
         } catch (Exception e) {
+            System.out.println("ERROR DE GUARDAR::" + e);
             respuesta = false;
         }
         sesion.close();
         return respuesta;
-
     }
 
     @Override
@@ -47,7 +46,8 @@ public class ClienteDao implements ICliente {
 
         //Ejecutar la consulta y obtener la lista
         milista = (ArrayList<Cliente>) query.list();
-
+        System.out.println("tam"+milista.size());
+        session.close();
         return milista;
 
     }
@@ -65,40 +65,6 @@ public class ClienteDao implements ICliente {
         }
         sesion.close();
         return respuesta;
-    }
-
-    @Override
-    public ArrayList<Cliente> listPastor(Session sesion) {
-        ArrayList<Cliente> milista = new ArrayList<>();
-        //Crear la consulta hacia la base de datos
-        Query query = sesion.createQuery("FROM Cliente where raza ='pastor aleman'");
-
-        //Ejecutar la consulta y obtener la lista
-        milista = (ArrayList<Cliente>) query.list();
-        sesion.close();
-
-        return milista;
-    }
-
-    @Override
-    public ArrayList<Cliente> listSANDOR(Session sesion) {
-        ArrayList<Cliente> milista = new ArrayList<>();
-        //Crear la consulta hacia la base de datos
-        Query query = sesion.createQuery("FROM Cliente where nombreCliente ='sandor'");
-
-        //Ejecutar la consulta y obtener la lista
-        milista = (ArrayList<Cliente>) query.list();
-
-        return milista;
-    }
-
-    @Override
-    public Integer listCount(Session sesion) {
-        String sql = "select count(*) From Cliente";
-        Query query = sesion.createQuery(sql);
-        Long long1 = (Long) query.uniqueResult();
-        Integer count = long1.intValue();
-        return count;
     }
 
     @Override

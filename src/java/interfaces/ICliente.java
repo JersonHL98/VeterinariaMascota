@@ -11,7 +11,7 @@ import org.hibernate.Session;
 
 /**
  *
- * @author LeguiA
+ * @author Jerson
  */
 public interface ICliente {
 
@@ -23,9 +23,4 @@ public interface ICliente {
 
     public abstract boolean eliminarCliente(Cliente cliente);
 
-    public abstract ArrayList<Cliente> listPastor(Session session);
-
-    public abstract ArrayList<Cliente> listSANDOR(Session session);
-
-    public abstract Integer listCount(Session sesion);
 }

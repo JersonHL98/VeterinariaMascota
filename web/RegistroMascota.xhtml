@@ -53,15 +53,16 @@
                                     </p:column>
                                 </p:row>
                             </p:panelGrid>
-                            <p:commandButton value="Registrar" action="#{mascotaBean.guardarMascota()}" update=":formData:dataTable,:formMascota"/>
+                            
                             <p:commandButton value="Nuevo" action="#{mascotaBean.limpiar()}" update=":formMascota"/>
-                            <p:commandButton value="Actualizar" action="#{mascotaBean.actualizarMascota()}" update=":formData:dataTable,:formMascota"/>
+                            <p:commandButton rendered="#{!mascotaBean.banderaSelect}" value="Registrar" action="#{mascotaBean.guardarMascota()}" update=":formData:dataTable,:formMascota"/>
+                            <p:commandButton rendered="#{mascotaBean.banderaSelect}" value="Actualizar" action="#{mascotaBean.actualizarMascota()}" update=":formData:dataTable,:formMascota"/>
                         </p:panel>
                     </h:form>
 
                     <h:form id="formData">
                         <p:dataTable rowKey="#{mascota.idMascota}" selection="#{mascotaBean.mascota}" selectionMode="single" id="dataTable" var="mascota" value="#{mascotaBean.listarMascotas()}">
-                            <p:ajax event="rowSelect" update=":formMascota"/>
+                            <p:ajax event="rowSelect" update=":formMascota" listener="#{mascotaBean.selectBandera()}"/>
                             <p:column headerText="Codigo">
                                 <p:outputLabel value="#{mascota.idMascota}"/>
                             </p:column>

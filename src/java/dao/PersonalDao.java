@@ -15,7 +15,7 @@ import utilitarios.HibernateUtil;
 
 /**
  *
- * @author LeguiA
+ * @author Jerson
  */
 public class PersonalDao implements IPersonal {
 
@@ -23,17 +23,17 @@ public class PersonalDao implements IPersonal {
     public boolean guardarPersonal(Personal personal) {
         //Construir una nueva session y una nueva transaccion
         boolean respuesta = true;
-        Session sesion = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaccion = sesion.beginTransaction();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaccion = session.beginTransaction();
 
         //Registrar en la base de datos la personal
         try {
-            sesion.save(personal);
+            session.save(personal);
             transaccion.commit();
         } catch (Exception e) {
             respuesta = false;
         }
-        sesion.close();
+        session.close();
         return respuesta;
 
     }
@@ -47,7 +47,7 @@ public class PersonalDao implements IPersonal {
 
         //Ejecutar la consulta y obtener la lista
         milista = (ArrayList<Personal>) query.list();
-
+         session.close();
         return milista;
 
     }

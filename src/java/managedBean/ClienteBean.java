@@ -15,13 +15,14 @@ import javax.faces.context.FacesContext;
 
 /**
  *
- * @author LeguiA
+ * @author Jerson
  */
 @ManagedBean
 @ViewScoped
 public class ClienteBean {
 
     private Cliente cliente;
+    private boolean banderaSelect;
 
     public Cliente getCliente() {
         return cliente;
@@ -84,4 +85,16 @@ public class ClienteBean {
         }
         return "/RegistroCliente.xhtml";
     }
+     public void selectBandera(){
+        banderaSelect= true;
+    }
+
+    public boolean isBanderaSelect() {
+        return banderaSelect;
+    }
+
+    public void setBanderaSelect(boolean banderaSelect) {
+        this.banderaSelect = banderaSelect;
+    }
+    
 }

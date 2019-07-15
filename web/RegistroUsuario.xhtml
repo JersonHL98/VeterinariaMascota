@@ -1,0 +1,99 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="./TemplateVeterinaria.xhtml">
+            <ui:define name="content">
+                <p:growl id="msj" autoUpdate="true"/>
+                <div align="center">
+                    <h:form id="formusuario">
+                        <p:panel style="width: 40%">
+                            <f:facet name="header">
+                                <p:column>
+                                    <p:outputLabel value="Datos de Usuario"/>
+                                </p:column>
+                            </f:facet>
+                            <p:panelGrid>
+
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="ID"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:inputText value="#{usuarioBean.usuario.idUsuario}"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Nombre"/>
+
+                                    </p:column>
+                                    <p:column>
+                                        <p:inputText value="#{usuarioBean.usuario.nombreUsuario}"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Password"/>
+                                    </p:column>
+                                
+                                    <p:column>
+                                        <p:inputText value="#{usuarioBean.usuario.password}"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Usuario"/>
+                                    </p:column>
+                                
+                                    <p:column>
+                                        <p:inputText value="#{usuarioBean.usuario.personal}"/>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+                            <p:commandButton value="Nuevo" action="#{usuarioBean.limpiar()}" update=":Data:dataTableUsuario,:formusuario"/>
+                            <p:commandButton rendered="#{!usuarioBean.banderaSelect}"  value="Guardar" action="#{usuarioBean.guardarUsuario()}" update=":Data:dataTableUsuario,:formusuario"/>
+                            <p:commandButton rendered="#{usuarioBean.banderaSelect}"  value="Actualizar" action="#{usuarioBean.actualizarUsuario()}" update=":Data:dataTableUsuario,:formusuario"/>
+                        </p:panel>
+                    </h:form>
+
+                    <h:form id="Data">
+                        <p:dataTable rowKey="#{usuario.idUsuario}" selection="#{usuarioBean.usuario}" selectionMode="single" id="dataTableUsuario" var="usuario" value="#{usuarioBean.listarUsuarios()}" style="width: 80%">
+                            <p:ajax event="rowSelect" update=":formusuario" listener="#{usuarioBean.selectBandera()}"/>
+                            <p:column headerText="Código">
+                                <p:outputLabel value="#{usuario.idUsuario}"/>
+                            </p:column>
+                            <p:column headerText="Nombre">
+                                <p:outputLabel value="#{usuario.nombreUsuario}"/>
+                            </p:column>
+                            <p:column headerText="Password">
+                                <p:outputLabel value="#{usuario.password}"/>
+                            </p:column>
+                            <p:column headerText="Usuario">
+                                <p:outputLabel value="#{usuario.personal}"/>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton value="Eliminar" action="#{usuarioBean.eliminarUsuario(usuario)}" update=":Data:dataTableUsuario,:formusuario"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+
+                </div>
+
+            </ui:define>
+
+
+        </ui:composition>
+
+    </h:body>
+</html>
+
+
+

@@ -15,13 +15,14 @@ import javax.faces.context.FacesContext;
 
 /**
  *
- * @author LeguiA
+ * @autho Jerson
  */
 @ManagedBean
 @ViewScoped
 public class PersonalBean {
 
     private Personal personal;
+    private boolean banderaSelect;
 
     public Personal getPersonal() {
         return personal;
@@ -83,5 +84,17 @@ public class PersonalBean {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error", "No se pudo eliminar"));
         }
         return "/RegistroPersonal.xhtml";
+    }
+
+    public void selectBandera() {
+        banderaSelect = true;
+    }
+
+    public boolean isBanderaSelect() {
+        return banderaSelect;
+    }
+
+    public void setBanderaSelect(boolean banderaSelect) {
+        this.banderaSelect = banderaSelect;
     }
 }

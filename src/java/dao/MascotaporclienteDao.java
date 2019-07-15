@@ -5,8 +5,8 @@
  */
 package dao;
 
-import entidades.Mascota;
-import interfaces.IMascota;
+import entidades.Mascotaporcliente;
+import interfaces.IMascotaporcliente;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
@@ -18,18 +18,18 @@ import utilitarios.HibernateUtil;
  *
  * @author Jerson
  */
-public class MascotaDao implements IMascota {
+public class MascotaporclienteDao implements IMascotaporcliente {
 
     @Override
-    public boolean guardarMascota(Mascota mascota) {
+    public boolean guardarMascotaporcliente(Mascotaporcliente mascotaporcliente) {
         //Construir una nueva session y una nueva transaccion
         boolean respuesta = true;
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Transaction transaccion = sesion.beginTransaction();
 
-        //Registrar en la base de datos la mascota
+        //Registrar en la base de datos la mascotaporcliente
         try {
-            sesion.save(mascota);
+            sesion.save(mascotaporcliente);
             transaccion.commit();
         } catch (Exception e) {
             respuesta = false;
@@ -39,27 +39,27 @@ public class MascotaDao implements IMascota {
 
     }
 
-    @Override
-    public ArrayList<Mascota> listarMascotas() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        ArrayList<Mascota> milista = new ArrayList<>();
+     @Override
+    public ArrayList<Mascotaporcliente> listarMascotaporcliente() {
+       Session session = HibernateUtil.getSessionFactory().openSession();
+        ArrayList<Mascotaporcliente> milista = new ArrayList<>();
         //Crear la consulta hacia la base de datos
-        Query query = session.createQuery("FROM Mascota");
+        Query query = session.createQuery("FROM Mascotaporcliente");
 
         //Ejecutar la consulta y obtener la lista
-        milista = (ArrayList<Mascota>) query.list();
+        milista = (ArrayList<Mascotaporcliente>) query.list();
         session.close();
         return milista;
-
     }
 
+
     @Override
-    public boolean actualizarMascota(Mascota mascota) {
+    public boolean actualizarMascotaporcliente(Mascotaporcliente mascotaporcliente) {
         boolean respuesta = true;
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Transaction transaccion = sesion.beginTransaction();
         try {
-            sesion.update(mascota);
+            sesion.update(mascotaporcliente);
             transaccion.commit();
         } catch (Exception e) {
             respuesta = false;
@@ -68,13 +68,16 @@ public class MascotaDao implements IMascota {
         return respuesta;
     }
 
+   
+
     @Override
-    public boolean eliminarMascota(Mascota mascota) {
-           boolean respuesta = true;
+    public boolean eliminarMascotaporcliente(Mascotaporcliente mascotaporcliente) {
+
+        boolean respuesta = true;
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Transaction transaccion = sesion.beginTransaction();
         try {
-            sesion.delete(mascota);
+            sesion.delete(mascotaporcliente);
             transaccion.commit();
             respuesta = true;
         } catch (Exception e) {
@@ -83,5 +86,7 @@ public class MascotaDao implements IMascota {
         sesion.close();
         return respuesta;
     }
-    
+
+   
+   
 }

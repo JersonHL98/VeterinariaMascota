@@ -12,7 +12,7 @@ import org.hibernate.Session;
 
 /**
  *
- * @author LeguiA
+ * @author Jerson
  */
 public interface IMascota {
 
@@ -24,9 +24,4 @@ public interface IMascota {
 
     public abstract boolean eliminarMascota(Mascota mascota);
 
-    public abstract ArrayList<Mascota> listPastor(Session session);
-
-    public abstract ArrayList<Mascota> listSANDOR(Session session);
-
-    public abstract Integer listCount(Session sesion);
 }
